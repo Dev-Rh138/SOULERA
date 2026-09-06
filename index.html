@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOULERA | 8,888 Unique Souls</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Orbitron',sans-serif;
+background: url('background_soul.png') no-repeat center center fixed;
+background-size: cover;
+color:white;
+overflow-x:hidden;
+}
+
+body::before{
+content:'';
+position:fixed;
+top: 0;
+left: 0;
+width:100%;
+height:100%;
+background: linear-gradient(to bottom, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.95) 100%);
+z-index:-1;
+}
+
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(0,0,0,.6);
+backdrop-filter:blur(10px);
+z-index:999;
+}
+
+.header-logo-img {
+    height: 25px; 
+    width: auto;
+    filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.5)); 
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:30px;
+font-size:14px;
+text-transform: uppercase;
+letter-spacing: 1px;
+transition: color 0.3s;
+}
+
+nav a:hover {
+color: #00e5ff;
+}
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:0 20px;
+}
+
+.hero-content{
+max-width:1000px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.hero-logo-img {
+    width: 100%;
+    max-width: 600px; 
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4)); 
+    margin-bottom: 10px;
+}
+
+.hero h2{
+font-size:28px;
+margin-top:20px;
+color: #00e5ff;
+}
+
+.hero p{
+margin-top:25px;
+font-size:18px;
+color:#ddd;
+line-height:1.8;
+}
+
+.buttons{
+margin-top:40px;
+}
+
+.btn{
+display:inline-block;
+padding:18px 40px;
+border-radius:50px;
+text-decoration:none;
+font-weight:bold;
+margin:10px;
+transition:.3s;
+letter-spacing: 1px;
+}
+
+.btn-primary{
+background:#00e5ff;
+color:black;
+}
+
+.btn-primary:hover{
+transform:translateY(-5px);
+box-shadow:0 0 25px #00e5ff;
+}
+
+.btn-secondary{
+border:2px solid #00e5ff;
+color:#00e5ff;
+background: rgba(0,0,0,0.5); 
+}
+
+.btn-secondary:hover{
+background:#00e5ff;
+color:black;
+}
+
+section{
+padding:100px 10%;
+}
+
+.section-title{
+font-size:45px;
+text-align:center;
+margin-bottom:50px;
+color:#00e5ff;
+letter-spacing: 3px;
+}
+
+.story{
+max-width:900px;
+margin:auto;
+text-align:center;
+line-height:2;
+color:#ddd;
+font-size:18px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+margin-top:70px;
+}
+
+.stat{
+background: rgba(17, 17, 17, 0.7); 
+backdrop-filter: blur(5px);
+padding:40px;
+border-radius:20px;
+text-align:center;
+border:1px solid #222;
+transition: transform 0.3s ease;
+}
+
+.stat:hover {
+transform: translateY(-5px);
+border-color: #00e5ff;
+}
+
+.stat h3{
+font-size:50px;
+color:#00e5ff;
+}
+
+.stat p{
+margin-top:10px;
+color:#ccc;
+letter-spacing: 1px;
+}
+
+/* --- ANIMASI MARQUEE UNTUK KOLEKSI NFT --- */
+.marquee-container {
+    width: 100vw;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 30px 0;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.marquee-container::before, .marquee-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+.marquee-container::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(5,5,5,1), transparent);
+}
+.marquee-container::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(5,5,5,1), transparent);
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    /* Durasi disesuaikan jadi 180s untuk 46 gambar */
+    animation: scroll 180s linear infinite; 
+}
+
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } 
+}
+
+.nft-card {
+    background: rgba(17, 17, 17, 0.7);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #222;
+    width: 260px; 
+    margin: 0 15px;
+    flex-shrink: 0;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    cursor: pointer;
+}
+
+.nft-card:hover {
+    transform: scale(1.08) translateY(-10px);
+    border-color: #00e5ff;
+    box-shadow: 0 10px 30px rgba(0, 229, 255, 0.4); 
+    z-index: 10;
+}
+
+.nft-card img {
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid #222;
+}
+
+.nft-card h3 {
+    padding: 15px;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+/* ------------------------------------------- */
+
+.roadmap{
+max-width:1000px;
+margin:auto;
+}
+
+.phase{
+background: rgba(17, 17, 17, 0.7);
+backdrop-filter: blur(5px);
+padding:30px;
+margin-bottom:25px;
+border-left:5px solid #00e5ff;
+border-radius:12px;
+}
+
+.phase h3{
+color:#00e5ff;
+margin-bottom:15px;
+letter-spacing: 1px;
+}
+
+.phase ul{
+padding-left:20px;
+line-height:2;
+color: #ddd;
+}
+
+.faq-item{
+background: rgba(17, 17, 17, 0.7);
+backdrop-filter: blur(5px);
+padding:25px;
+margin-bottom:15px;
+border-radius:12px;
+}
+
+.faq-item h4{
+color:#00e5ff;
+margin-bottom:10px;
+letter-spacing: 1px;
+}
+
+.faq-item p {
+color: #ddd;
+}
+
+footer{
+padding:60px 20px;
+text-align:center;
+border-top:1px solid #222;
+background: rgba(0,0,0,0.8);
+}
+
+.footer-logo-img {
+    height: 40px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.socials a{
+color:#00e5ff;
+margin:0 15px;
+text-decoration:none;
+letter-spacing: 1px;
+transition: color 0.3s ease;
+}
+
+.socials a:hover {
+color: #fff;
+text-shadow: 0 0 10px #00e5ff;
+}
+
+@media(max-width:768px){
+
+.hero-logo-img {
+    max-width: 90%; 
+}
+
+.hero h2{
+font-size:18px;
+}
+
+.section-title{
+font-size:30px;
+}
+
+nav {
+display: none; 
+}
+
+.marquee-container::before, .marquee-container::after {
+    width: 50px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<header>
+
+<a href="#" class="logo">
+    <img src="teks.png" alt="SOULERA" class="header-logo-img">
+</a>
+
+<nav>
+<a href="#story">Story</a>
+<a href="#collection">Collection</a>
+<a href="#roadmap">Roadmap</a>
+<a href="#faq">FAQ</a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<img src="teks.png" alt="SOULERA" class="hero-logo-img">
+
+<h2>8,888 Unique Souls. One Evolving Universe.</h2>
+
+<p>
+They are not characters.
+They are identities waiting to be discovered.
+</p>
+
+<div class="buttons">
+
+<a class="btn btn-primary"
+href="https://opensea.io/collection/soulera/overview"
+target="_blank">
+MINT NOW
+</a>
+
+<a class="btn btn-secondary"
+href="https://x.com/SOULERA_Rh"
+target="_blank">
+FOLLOW X
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="story">
+
+<h2 class="section-title">WELCOME TO SOULERA</h2>
+
+<div class="story">
+
+<p>
+Welcome to SOULERA.
+</p>
+
+<br>
+
+<p>
+A new digital universe inhabited by 8,888 unique Souls,
+each with its own identity, personality, traits, and story.
+</p>
+
+<br>
+
+<p>
+In SOULERA, individuality is everything.
+From fearless warriors and mysterious outcasts
+to futuristic beings, rebels, legends, and unexpected characters —
+every Soul is different.
+</p>
+
+<br>
+
+<p>
+But these aren't just characters.
+</p>
+
+<br>
+
+<p>
+They are identities waiting to be discovered.
+</p>
+
+<br>
+
+<p>
+As SOULERA grows, its Souls become part of an evolving universe
+built around creativity, community, and individuality.
+</p>
+
+<br>
+
+<h3 style="color:#00e5ff; letter-spacing: 2px;">
+THE ERA OF SOULS BEGINS NOW
+</h3>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<h3>8,888</h3>
+<p>Unique Souls</p>
+</div>
+
+<div class="stat">
+<h3>1</h3>
+<p>Universe</p>
+</div>
+
+<div class="stat">
+<h3>∞</h3>
+<p>Possibilities</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="collection">
+
+<h2 class="section-title">SOULS SNEAK PEEK</h2>
+
+<div class="marquee-container">
+    <div class="marquee-track">
